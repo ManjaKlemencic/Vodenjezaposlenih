@@ -103,7 +103,7 @@ if (empty($up_ime_err) && empty($geslo_err) && empty($potrdi_geslo_err)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pridružitev</title>
-    <!-- Bootstrap 5 CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .register-container {
@@ -162,7 +162,7 @@ if (empty($up_ime_err) && empty($geslo_err) && empty($potrdi_geslo_err)) {
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

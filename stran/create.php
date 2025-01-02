@@ -14,6 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = trim($_POST["email"]);
     $tel = trim($_POST["tel_stevilka"]);
     $up_ime = trim($_POST["up_ime"]);
+    $password = trim($_POST["password"]); 
     $ulica = trim($_POST["ulica"]);
     $hisna_st = trim($_POST["hisna_stevilka"]);
     $postna_st = trim($_POST["postna_stevilka"]);
@@ -29,14 +30,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $errors[] = "Prosim vnesite veljaven email naslov.";
     }
     
+    if(empty($password)) $errors[] = "Prosim vnesite geslo.";
+    if(empty($up_ime)) $errors[] = "Prosim vnesite uporabniško ime.";
+    
    
     if(empty($errors)){
         mysqli_begin_transaction($link);
         try {
             
-            $sql_uporabnik = "INSERT INTO uporabnik (up_ime) VALUES (?)";
+            $hashed_password = sha1($password);
+            
+            $sql_uporabnik = "INSERT INTO uporabnik (up_ime, geslo) VALUES (?, ?)";
             $stmt = mysqli_prepare($link, $sql_uporabnik);
-            mysqli_stmt_bind_param($stmt, "s", $up_ime);
+            mysqli_stmt_bind_param($stmt, "ss", $up_ime, $hashed_password);
             mysqli_stmt_execute($stmt);
             $id_uporabnik = mysqli_insert_id($link);
             
@@ -152,6 +158,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="form-group">
                             <label>Uporabniško ime</label>
                             <input type="text" name="up_ime" class="form-control" value="<?php echo isset($up_ime) ? htmlspecialchars($up_ime) : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Geslo</label>
+                            <input type="password" name="password" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Ulica</label>
